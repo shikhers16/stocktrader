@@ -1,0 +1,27 @@
+.listitem {
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--main-color);;
+  text-decoration: none;
+  transition: 0.3s;
+  border: 1px solid var(--border-bg-color);
+  width: 100%;
+}
+
+/* On mouse-over, add a deeper shadow */
+.listitem:hover,
+.listitem:active{
+  border: 1px solid var(--contrast-bg-color);
+  /* box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.8); */
+}
+.edit {
+  border: 1px solid var(--contrast-bg-color);
+  /* box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.8); */
+}
+.edit:hover,
+.edit:active{
+  border: 1px solid #ff0000;
+  box-shadow: 0 0 4px 4px rgba(255, 0, 0, 0.89);
+}

@@ -1,0 +1,34 @@
+.news {
+  /* Add shadows to create the "card" effect */
+  background-color: var(--main-bg-color);
+  color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 4px;
+  /* box-shadow: 0 4px 8px 0 rgba(107, 87, 87, 0.2); */
+  transition: 0.3s;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-top: 1px solid #ccc;
+  /* max-width: 250px; */
+  /* width: 100%; */
+  /* margin: auto; */
+}
+.heading{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.imagecontainer{
+	max-width: 100%;
+	max-height: 250px;
+	margin: auto;
+	text-align: center;
+}
+.image{
+	max-width: 100%;
+	max-height: 250px;
+	margin: auto;
+	text-align: center;
+}

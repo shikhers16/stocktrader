@@ -1,0 +1,31 @@
+.backdrop{
+width: 100vw;	
+height: 100vh;
+position: fixed;
+top: 0;
+left: 0;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: 98;
+}
+.modal{
+	background-color: var(--alt-bg-color);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-content: space-between;
+	border-radius: 4px;
+	/* box-shadow: 0 8px 16px 0 #44444440; */
+	border: 1px solid var(--alt-bg-color);;  
+	position: fixed;
+	margin: auto;
+	padding: 1rem;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 99;
+	width: fit-content;
+	min-height: 10rem;
+	max-height: fit-content;
+	height: fit-content;
+}

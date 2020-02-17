@@ -1,0 +1,24 @@
+.form {
+  	width: 100%;
+  	margin: auto;
+	display: block;
+}
+
+.formcontrol {
+  	margin: 1rem;
+}
+
+.formcontrol label{
+  	display: block;
+  	margin-bottom: 0.25rem;
+}
+
+.formcontrol input.invalid,
+.formcontrol textarea.invalid {
+  	border-color: red;
+}
+
+.password{
+	box-shadow: none;
+	border: none;
+}

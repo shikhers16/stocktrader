@@ -1,0 +1,22 @@
+.select{
+	background: var(--input-bg-color);
+	color: var(--input-color);
+	letter-spacing: 0.06rem;
+	outline: none;
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	padding: 0.5rem;
+	text-transform: uppercase;
+	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+.select:focus,
+.select:active,
+.select:hover{
+	border: 1px solid var(--outline-color);
+	outline: blue;
+}
+.select::selection{
+	background-color: yellow;
+}
+.disabled{
+	background-color: var(--disabled-bg-color);
+}

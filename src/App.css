@@ -1,38 +1,108 @@
-.App {
-  text-align: center;
+:root {
+  --main-bg-color: #000000;
+  --main-color: #ffffff;
+  --contrast-bg-color: #ffffff;
+  --contrast-color: #000000;
+  --alt-bg-color: #232323;
+  --alt-color: #ffffff;
+  --active-bg-color: #333333;
+  --active-color: #ffffff;
+  --border-bg-color: #444444;
+  --input-bg-color: #111111;
+  --input-color: #ffffff;
+  --border-bg-color: #444444;
+  --disabled-bg-color: #666666;
+  --disabled-color: #ffffff;
+  --outline-color: #ffff00;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html{
+	background-color: var(--main-bg-color);
+  color: var(--main-color);
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+.navbar{
+  display: flex;
+  margin: 0;
+  padding: 0;
+  background-color: var(--alt-bg-color);
+  height: fit-content;
+  justify-content: space-between;
+}
+.navgroup{
+  display: flex;
+  justify-content: flex-end;
+  height: fit-content;
+}
+.navlink{
+  padding: 1rem;
+  /* margin: 1rem; */
+  background-color: var(--alt-bg-color);
+  color: var(--alt-color);
+  text-decoration: none;
+}
+.navlink:hover,
+.navlink:active,
+.navlink.active{
+  background-color: #ffff00;
+  /* background-color: #1647fb; */
+  color: #000000;
+  /* border-bottom: 2px solid #ffff00; */
+  /* border-bottom: 2px solid #1647fb;; */
+  /* text-decoration: underline; */
 }
 
-.App-link {
-  color: #61dafb;
+
+
+/* .action{
+  margin: 0.5rem;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background-color: #1647fb;
+
+  border: 2px solid #1647fb;
+  color: #ffffff;
+  text-decoration: none;
+}
+.action:hover,
+.action:active,
+.action.active{
+  background-color: #ffff00;
+} */
+
+.hide{
+	display: none!important;
+}
+.red{
+  background-color: red;
+  color: #ffffff;
+}
+button{
+  cursor: pointer;
+}
+.center{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.paddingTop{
+  padding-top: 1rem;
+}
+.paddingY{
+  padding: 1rem 0;
+}
+.marginY{
+  margin: 1rem auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@media (min-width: 768px) {
+	.main{
+    display: flex;
+    flex-direction: row;
+    }
 }

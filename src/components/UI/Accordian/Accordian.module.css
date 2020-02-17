@@ -1,0 +1,19 @@
+.accordian{
+	display: block;
+	margin: 0.5rem;
+	/* background-color: #cccccc; */
+	width: 100%;
+	text-align: center;
+	border-radius: 4px;
+	border: 1px solid var(--border-bg-color);
+}
+
+
+@media (min-width: 768px) {
+.accordian{
+	display: block;
+	margin: 0.25rem 0;
+	margin-left: 0.25rem;
+	width: 30vw;
+}
+}

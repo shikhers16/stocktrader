@@ -1,0 +1,32 @@
+.frame{
+	background-color: #414141;
+	color: #ffffff;
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem;
+	text-align: center;
+	width: fit-content;
+	position: fixed;
+	left: 1rem;
+	bottom: 2rem;
+	z-index: 100;
+	transition: ease-in-out;
+	/* border-radius: 6px; */
+}
+.i{
+	color: #ffffff;
+}
+.cross{
+	background-color: transparent;
+	border: none;
+}
+.cross:focus,
+.cross:active,
+.cross:hover{
+	border: none;
+	outline: none;
+	background-color: #aaaaaa;
+}
+.hide{
+display: none!important;
+}

@@ -1,0 +1,15 @@
+.forms {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+.center{
+	display: flex;
+	justify-content: center;
+}
+.message{
+	text-align: center;
+	color: #ff0000;
+	margin-top: 1rem;
+	height: 1rem;
+}

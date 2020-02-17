@@ -1,0 +1,16 @@
+.container{
+	display: flex;
+	align-items: center;
+	margin-right: 1rem;
+	height: 2rem;
+	width: 2rem;
+	vertical-align: center;
+}
+.centered{
+	margin-left: 1rem;
+	margin-right: 1rem;
+	margin-bottom: 0.5rem;
+}
+.logo{
+	width: 100%;
+}
