@@ -7,13 +7,11 @@ import Heading from '../../../components/UI/Heading/Heading';
 import Card from '../../../components/UI/Card/Card';
 import Form from '../../../components/Form/Form';
 import Button from '../../../components/UI/Button/Button';
-import Notification from '../../../components/UI/Notification/Notification';
 
 class Signup extends Component {
 	state = {
 		message: "",
 		loading: false,
-		notification: "",
 		account: {
 			normal: {
 				name: "",
@@ -32,10 +30,8 @@ class Signup extends Component {
 		if (message) return this.setState({ message: message, loading: false });
 		// upload
 		const data = { ...this.state.account.normal, ...this.state.account.secret };
-		console.log(data);
 		axios.post('/auth/signup/', data)
 			.then(response => {
-				console.log(response.data);
 				this.props.history.replace('/login');
 			})
 			.catch(error => {
@@ -54,11 +50,9 @@ class Signup extends Component {
 	validate = () => {
 		if (!this.state.account.normal.email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/)) return "invalid email";
 		if (this.state.account.secret["password"].length < 8) {
-			// return this.setState({ message: "passwords should be atleast 8 characters long" });
 			return "passwords should be atleast 8 characters long"
 		}
 		if ((this.state.account.secret["confirm password"] !== this.state.account.secret.password)) {
-			// return this.setState({ message: "passwords do not match" });
 			return "passwords do not match";
 		}
 		let c = this.checkempty();
@@ -81,14 +75,6 @@ class Signup extends Component {
 		newAccount[type][name] = value;
 		return this.setState({ account: newAccount });
 	}
-	showNotification = (text) => {
-		this.setState({ notification: text });
-		setTimeout(this.closeNotification, 5000);
-	}
-	closeNotification = (e) => {
-		console.log('closenotfy');
-		this.setState({ notification: "" });
-	}
 	render = () => {
 		return (<Fragment>
 			<Card >
@@ -97,14 +83,13 @@ class Signup extends Component {
 				</div>
 				<span className={classes.message}>{this.state.message}</span>
 				<div className={classes.forms}>
-					<Form details={this.state.account} update={this.update} notify={this.showNotification} autocomplete="new-password" ></Form>
+					<Form details={this.state.account} update={this.update} notify={this.props.notify} autocomplete="new-password" ></Form>
 				</div>
 				<div className={classes.center}>
 					<Button onclick={(e) => this.signup(e)} color="green" loading={this.state.loading} tabindex="0" >Signup</Button>
 					<Button onclick={(e) => this.cancel(e)} color="red" disabled={this.state.loading} >Cancel</Button>
 				</div>
 			</Card>
-			{this.state.notification ? <Notification message={this.state.notification} close={this.closeNotification}></Notification> : null}
 		</Fragment >)
 	}
 }

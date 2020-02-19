@@ -7,7 +7,6 @@
   --alt-color: #ffffff;
   --active-bg-color: #333333;
   --active-color: #ffffff;
-  --border-bg-color: #444444;
   --input-bg-color: #111111;
   --input-color: #ffffff;
   --border-bg-color: #444444;
@@ -16,7 +15,7 @@
   --outline-color: #ffff00;
 }
 html{
-	background-color: var(--main-bg-color);
+  background-color: var(--main-bg-color);
   color: var(--main-color);
 }
 .App{
@@ -26,6 +25,7 @@ html{
   min-height: 100vh;
 }
 .navbar{
+  position: sticky;
   display: flex;
   margin: 0;
   padding: 0;
@@ -36,11 +36,9 @@ html{
 .navgroup{
   display: flex;
   justify-content: flex-end;
-  height: fit-content;
 }
 .navlink{
   padding: 1rem;
-  /* margin: 1rem; */
   background-color: var(--alt-bg-color);
   color: var(--alt-color);
   text-decoration: none;
@@ -49,32 +47,15 @@ html{
 .navlink:active,
 .navlink.active{
   background-color: #ffff00;
-  /* background-color: #1647fb; */
   color: #000000;
-  /* border-bottom: 2px solid #ffff00; */
-  /* border-bottom: 2px solid #1647fb;; */
-  /* text-decoration: underline; */
 }
-
-
-
-/* .action{
-  margin: 0.5rem;
-  padding: 0.5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  background-color: #1647fb;
-
-  border: 2px solid #1647fb;
-  color: #ffffff;
+.link{
   text-decoration: none;
+  color: #ffff00;
 }
-.action:hover,
-.action:active,
-.action.active{
-  background-color: #ffff00;
-} */
-
+.link:hover, .link:active{
+  color: #1647fb;
+}
 .hide{
 	display: none!important;
 }
@@ -100,7 +81,7 @@ button{
   margin: 1rem auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
 	.main{
     display: flex;
     flex-direction: row;

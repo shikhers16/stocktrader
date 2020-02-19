@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import classes from './Transaction.module.css';
 
@@ -18,18 +17,16 @@ class Transaction extends Component {
 		TRIGGER: ""
 	}
 	change = (e, name, value) => {
-		console.log(name, value, e.currentTarget.value);
 		if (name === "SIDE") this.setState({ SIDE: value });
 		else if (name === "ORDER") this.setState({ ORDER: value });
 	}
 	update = (type, name, value) => {
-		console.log(type, name, value);
 		if (name === "QTY") return this.setState({ QTY: value });
 		if (name === "PRICE") return this.setState({ PRICE: value });
 		if (name === "TRIGGER") return this.setState({ TRIGGER: value });
 	}
 	transaction = () => {
-		let url, data;
+		let data;
 		switch (this.state.ORDER) {
 			case 'MARKET':
 				data = { type: 'market', symbol: this.props.symbol, side: this.state.SIDE, qty: this.state.QTY };
@@ -49,7 +46,6 @@ class Transaction extends Component {
 		this.props.transaction(data);
 	}
 	render = () => {
-		console.log('trnsacion', this.state.SIDE);
 		const color = this.props.prices.change > 0 ? classes.green : classes.red;
 		return (
 			<Modal show={this.props.show} clicked={this.props.closeModal}>
@@ -80,14 +76,12 @@ class Transaction extends Component {
 					</div>
 				</div>
 				<div className={classes.middle}>
-					{/* <div className={classes.dropdown}> */}
 					<div className={classes.input}>
 						<span>SIDE</span> <Select options={['buy', 'sell']} name="SIDE" value={this.state.SIDE} change={this.change} />
 					</div>
 					<div className={classes.input}>
 						<span>ORDER</span> <Select options={['MARKET', 'LIMIT', 'STOP MARKET', 'STOP LIMIT']} name="ORDER" value={this.state.ORDER} change={this.change} />
 					</div>
-					{/* </div> */}
 					<div className={classes.input}>
 						<Number value={this.state.QTY} min={0} update={this.update} name="QTY" />
 					</div>

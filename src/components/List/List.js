@@ -16,33 +16,28 @@ class List extends Component {
 		slide: false
 	}
 	toggleDropdown = (x) => {
-		console.log(this.state.panel);
+		//console.log(this.state.panel);
 		x.currentTarget.classList.toggle(classes.active);
 		let arrow = x.currentTarget.lastChild;
 		let panel = x.currentTarget.parentElement.nextElementSibling;
-		console.log(panel.style.display);
+		//console.log(panel.style.display);
 		if (panel.style.maxHeight) {
 			arrow.innerHTML = '<i class="fas fa-chevron-down"></i>';
-			// panel.style.display = "none";
-			// panel.style.paddingBottom = "0";
 			panel.style.maxHeight = null;
 		} else {
 			arrow.innerHTML = '<i class="fas fa-chevron-up"></i>';
-			// panel.style.display = "inline";
-			// panel.style.maxHeight = panel.scrollHeight + "px";
-			// panel.style.paddingBottom = "1rem";
 			panel.style.maxHeight = panel.scrollHeight + "px";
 		}
 		const status = !this.state.open;
 		this.setState({ open: status, panel: panel })
 	}
 	clicked = (symbol) => {
-		console.log("clicked");
-		if (!this.props.prices[symbol]) return null;
+		//console.log("clicked");
 		if (this.props.editing) {
 			return this.props.remove(symbol);
 		}
 		else {
+			if (!this.props.prices[symbol]) return null;
 			return this.props.activate(symbol);
 		}
 	}
@@ -67,12 +62,11 @@ class List extends Component {
 		}
 	}
 	render = () => {
-		// const height = this.state.open ? "100%" : null;
 		let list = [];
 		this.props.listitems.forEach(symbol => {
 			const changeClasses = classes.change + " " + (this.props.prices[symbol] ? (this.props.prices[symbol].change > 0 ? classes.green : classes.red) : null);
 			list.push(
-				<Listitem link={symbol} key={symbol} editing={this.props.editing} >{/*clicked={() => this.clicked(symbol)} >*/}
+				<Listitem link={symbol} key={symbol} editing={this.props.editing} >
 					<div className={classes.left} onClick={() => this.clicked(symbol)} >
 						<Logo centered symbol={symbol}></Logo>
 						<div>
@@ -89,17 +83,14 @@ class List extends Component {
 							${this.props.prices[symbol] ? this.props.numberWithCommas(this.props.prices[symbol].price) : null}
 						</div>
 						<sub className={changeClasses} >
-							{/* {this.state.percent ? (<span className={classes.changevalue}>{(this.props.prices[symbol].changePercent * 100).toFixed(2) + "%"}</span>) : (<span className={classes.changevalue}>{this.props.prices[symbol].change + "$"}</span>)} */}
 							<span className={classes.changevalue}>
 								{this.props.prices[symbol] ? (this.state.percent ? (this.props.numberWithCommas((this.props.prices[symbol].changePercent * 100).toFixed(2)) + "%") : (this.props.numberWithCommas(this.props.prices[symbol].change) + " $")) : null}
 							</span>
 						</sub>
 					</div>
-					{/* <button className={classes.delete} onClick={this.props.delete} ><i className="fas fa-times"></i></button> */}
 				</Listitem>
 			)
 		});
-		// list.push(<Listitem><Input value={this.props.value} update={this.props.update} name="symbol" plus={(symbol) => this.props.add(symbol)} /></Listitem>);
 		return (<div className={classes.list}>
 			<div className={classes.item}>
 				<div className={classes.heading} onClick={this.toggleDropdown} id={this.props.heading}>
@@ -129,7 +120,6 @@ class List extends Component {
 					{this.props.editing ?
 						(
 							<div className={classes.button}>
-								{/* <Input value={this.props.value} update={this.props.update} name="symbol" add={(symbol) => this.props.add(symbol)} /> */}
 								<Button onclick={this.props.save} color="yellow" >Save</Button>
 								<Button color="red" onclick={this.props.cancel}>Cancel</Button>
 							</div>
@@ -137,10 +127,8 @@ class List extends Component {
 						:
 						(<div className={classes.button}>
 							<Button onclick={this.props.edit} color="yellow" >{list.length ? "Edit" : "Add"}</Button>
-							{/* {list.length ? <Button onclick={this.props.toggleRemove} color="red" >Remove</Button> : null} */}
 						</div>)
 					}
-					{/* /* <Button color="red"   >Delete</Button> */}
 				</div>
 			</div>
 		</div>)

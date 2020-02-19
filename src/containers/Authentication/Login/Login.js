@@ -31,24 +31,18 @@ class Login extends Component {
 		const user = this.state.account.normal["username or email"]
 		if (user.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/)) data.email = user;
 		else data.username = user;
-		console.log(data);
 		axios.post('/auth/login/', data)
 			.then(response => {
 				if (response.data) {
 					const user = response.data;
-					console.log(user);
 					this.setState({ message: user.token, loading: false });
 					localStorage.setItem("token", user.token);
 					localStorage.setItem("username", user.username);
 					localStorage.setItem("userid", user.userid);
 					const expiryDate = new Date(new Date().getTime() + user.expiresIn * 1000);
 					localStorage.setItem('expiryDate', expiryDate);
-					// if (this.props.location.pathname.includes('auth')) this.props.history.replace('/passwords');
-					console.log(1);
 					let location = this.props.location.state ? this.props.location.state.from : "/";
-					console.log(2);
 					this.props.checklogin();
-					console.log(3);
 					return this.props.history.replace(location);
 				}
 				else {
@@ -65,7 +59,6 @@ class Login extends Component {
 			})
 	}
 	cancel = (e) => {
-		console.log()
 		this.props.history.goBack()
 	}
 	checkempty = () => {
@@ -80,7 +73,6 @@ class Login extends Component {
 		return c;
 	}
 	update = (type, name, value) => {
-		console.log(type, name, value);
 		const newAccount = { ...this.state.account };
 		newAccount[type][name] = value;
 		return this.setState({ account: newAccount, message: "" });
@@ -90,11 +82,9 @@ class Login extends Component {
 		setTimeout(this.closeNotification, 5000);
 	}
 	closeNotification = (e) => {
-		console.log('closenotfy');
 		this.setState({ notification: "" });
 	}
 	render = () => {
-		console.log(this.props);
 		return (<Fragment>
 			<Card >
 				<div style={{ marginLeft: "auto", marginRight: "auto" }}>
@@ -102,7 +92,7 @@ class Login extends Component {
 				</div>
 				<span className={classes.message}>{this.state.message}</span>
 				<div className={classes.forms}>
-					<Form details={this.state.account} update={this.update} notify={this.showNotification} autocomplete="current-password" ></Form>
+					<Form details={this.state.account} update={this.update} notify={this.props.notify} autocomplete="current-password" ></Form>
 				</div>
 				<div className={classes.center}>
 					<Button onclick={(e) => this.login(e)} loading={this.state.loading} tabindex={0} >Login</Button>

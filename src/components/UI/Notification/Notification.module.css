@@ -1,32 +1,56 @@
 .frame{
-	background-color: #414141;
-	color: #ffffff;
+	background-color: var(--active-bg-color);
+	color: var(--main-color);
 	display: flex;
 	justify-content: space-between;
-	padding: 1rem;
 	text-align: center;
-	width: fit-content;
 	position: fixed;
-	left: 1rem;
-	bottom: 2rem;
+	right: 1rem;
+	top: 4rem;
 	z-index: 100;
-	transition: ease-in-out;
-	/* border-radius: 6px; */
+	border: 1px solid var(--outline-color);
+}
+@-webkit-keyframes notify-start {
+  0% {transform: scaleX(0);}
+  50% {transform: scaleX(1);}
+  70% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}
+@-webkit-keyframes notify-end {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scaleX(0);}
+}
+@keyframes notify-start {
+  0% {transform: scaleX(0);}
+  50% {transform: scaleX(1);}
+  70% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}
+@keyframes notify-end {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scaleX(0);}
+}
+.notify-end{
+	animation: notify-end 2s ease-in-out;
+}
+
+.message{
+	margin: 1rem;
 }
 .i{
-	color: #ffffff;
+	color: var(--main-color);
 }
 .cross{
-	background-color: transparent;
+	background-color: #ff0000;
 	border: none;
+	padding: 1rem;
 }
 .cross:focus,
 .cross:active,
 .cross:hover{
 	border: none;
 	outline: none;
-	background-color: #aaaaaa;
-}
-.hide{
-display: none!important;
+	background-color: #a80202;
 }

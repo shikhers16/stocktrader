@@ -11,7 +11,6 @@ class Input extends Component {
 		this.setState({ value: value });
 	}
 	enter = (e) => {
-		console.log(e.which, e.key);
 		if (e.which === 13 || e.keyCode === 13) {
 			e.currentTarget.nextElementSibling.firstChild.click();
 		}
@@ -28,7 +27,6 @@ class Input extends Component {
 			inputclass = inputclass + " " + classes.disabled;
 		}
 		const autoComplete = (this.props.name === "username" || this.props.name === "email") ? this.props.name : null;
-		console.log(autoComplete);
 		return (<Fragment>
 			<label htmlFor={this.props.name} className={classes.label}>{this.props.name}</label>
 			<div className={mainclass}>
@@ -41,10 +39,6 @@ class Input extends Component {
 						</button>)
 						:
 						<span className={classes.nothing} disabled><i className="fas fa-stream"></i></span>}
-					{this.props.remove ? (<button className={classes.remove} onClick={(e) => { e.preventDefault(); this.props.remove(e); }}>
-						<i className="fas fa-times"></i>
-						<span className={classes.tooltiptext}>remove field</span>
-					</button>) : null}
 				</div>
 			</div>
 		</Fragment >)

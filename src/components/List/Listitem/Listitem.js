@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import classes from './Listitem.module.css'
 const listitem = (props) => {
 	const finalClass = classes.listitem + " " + props.className + " " + (props.editing ? classes.edit : null)

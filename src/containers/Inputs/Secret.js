@@ -13,7 +13,6 @@ class Secret extends Component {
 	generatepassword = (e) => {
 		axios.get('/auth/securepassword?number=1')
 			.then(response => {
-				console.log(response.data.passwords);
 				const password = response.data.passwords[0];
 				this.change(password);
 			})
@@ -51,7 +50,6 @@ class Secret extends Component {
 			await navigator.clipboard.writeText(input.value);
 		}
 		catch{
-			console.log('whatsup bro fuck off');
 			input.select();
 			input.setSelectionRange(0, input.value.length);
 			document.execCommand("copy");
@@ -59,21 +57,20 @@ class Secret extends Component {
 		}
 		if (p) input.type = "password";
 		if (d) input.disabled = true;
-		this.props.notify("Copied to Clipboard");
+		this.props.notify("Copied to Clipboard", 5);
 	}
 	paste = (e) => {
 		if (navigator.clipboard) {
 			navigator.clipboard.readText()
 				.then(text => {
 					this.change(text);
-					this.props.notify("Pasted");
+					this.props.notify("Pasted", 5);
 				})
 				.catch(error => {
-					console.log(error);
-					this.props.notify("Paste Permission Denied");
+					this.props.notify("Paste Permission Denied", 5);
 				})
 		} else {
-			this.props.notify("Can't paste");
+			this.props.notify("Can't paste", 5);
 		}
 	}
 	render() {
@@ -102,16 +99,6 @@ class Secret extends Component {
 								<i className="fas fa-paste"></i>
 								<span className={classes.tooltiptext}>paste</span>
 							</button>)}
-						{this.props.disabled ? null : (
-							<button className={classes.button} onClick={(e) => { e.preventDefault(); this.generatepassword(e) }}>
-								<i className="fas fa-file-signature"></i>
-								<span className={classes.tooltiptext}>generate random secure password</span>
-							</button>)}
-						{this.props.remove ? (
-							<button className={classes.remove} onClick={(e) => { e.preventDefault(); this.props.remove(e) }}>
-								<i className="fas fa-times"></i>
-								<span className={classes.tooltiptext}>remove field</span>
-							</button>) : null}
 					</div>
 				</div >
 			</Fragment>)

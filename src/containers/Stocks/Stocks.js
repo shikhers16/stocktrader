@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import openSocket from 'socket.io-client';
 
@@ -57,7 +57,7 @@ class Stocks extends Component {
 		}
 	}
 	openModal = (method, _id) => {
-		console.log(method, _id);
+		// console.log(method, _id);
 		let modalState = {};
 		switch (method) {
 			case "new":
@@ -76,7 +76,6 @@ class Stocks extends Component {
 				window.scrollTo(0, 0);
 				break;
 			default:
-				console.log("default");
 				break;
 		}
 		return this.setState(modalState);
@@ -88,37 +87,33 @@ class Stocks extends Component {
 		const userid = localStorage.getItem('userid');
 		axios.get(`/user/portfolio/?user=${userid}`)
 			.then(response => {
-				console.log(response.data);
 				if (response.data._id) {
 					const symbols = response.data.portfolio.list.map(item => item.symbol);
-					console.log(symbols);
 					if (symbols.length) this.getData([{ list: symbols }]);
 					this.setState({ portfolio: response.data.portfolio });
 				}
 			})
 			.catch(error => {
-				console.log(error.request);
+				// console.log(error.request);
+				this.props.notify("An Error Occured in getting Portfolio", 4)
 			});
 	}
 	getOrders = () => {
 		const userid = localStorage.getItem('userid');
 		axios.get(`/user/orders/?user=${userid}`)
 			.then(response => {
-				console.log('orders', response.data);
 				if (response.data) {
-					const symbols = response.data.map(item => item.symbol);
-					console.log(symbols);
+					// const symbols = response.data.map(item => item.symbol);
 					this.setState({ orders: response.data });
 				}
 			})
 			.catch(error => {
-				console.log(error.request);
+				this.props.notify("An Error Occured in getting your Orders", 4)
 			});
 	}
 	addWatchlist = () => {
 		axios.post('/user/watchlist/new/', { name: this.state.name })
 			.then(response => {
-				// console.log(response.data);
 				if (response.data.message === "Success") {
 					const newWatchlists = [...this.state.watchlists];
 					newWatchlists.push(response.data.watchlist);
@@ -127,7 +122,7 @@ class Stocks extends Component {
 				}
 			})
 			.catch(error => {
-				console.log(error.request);
+				this.props.notify("Could not add Watchlist", 4)
 				return this.closeModal();
 			});
 	}
@@ -138,19 +133,17 @@ class Stocks extends Component {
 			_id: this.state._id
 		})
 			.then(response => {
-				// console.log(response.data);
 				if (response.data.message === "Success") {
 					const newWatchlists = [...this.state.watchlists];
 					const index = this.state.watchlists.findIndex(watchlist => watchlist._id === this.state._id);
 					newWatchlists.splice(index, 1, response.data.watchlist);
-					// newWatchlists.push(response.data.watchlist)
 					this.setState({ watchlists: newWatchlists, add: [], remove: [], _id: null });
 					this.getData(newWatchlists);
 					return this.closeModal();
 				}
 			})
 			.catch(error => {
-				console.log(error.request);
+				this.props.notify("An Error Occured in Editing Watchlist", 4)
 				return this.closeModal();
 			});
 	}
@@ -170,12 +163,13 @@ class Stocks extends Component {
 						}
 					})
 					.catch(error => {
-						console.log(error.request);
+						// console.log(error.request);
+						this.props.notify("An Error Occured", 4)
+
 						return this.closeModal();
 					});
 				break;
 			case 'order':
-				console.log('order delete', this.state.orderID);
 				_id = this.state.orderID;
 				axios.delete('/user/order', { data: { "_id": _id } })
 					.then(response => {
@@ -188,7 +182,7 @@ class Stocks extends Component {
 						}
 					})
 					.catch(error => {
-						console.log(error.request);
+						this.props.notify("An Error Occured", 4)
 						return this.closeModal();
 					});
 				break;
@@ -198,7 +192,6 @@ class Stocks extends Component {
 
 	}
 	add = (symbol) => {
-		console.log(symbol);
 		if (symbol) {
 			const plus = [...this.state.add];
 			plus.push(symbol.toUpperCase());
@@ -206,7 +199,6 @@ class Stocks extends Component {
 		}
 	}
 	remove = (_id, symbol) => {
-		console.log(_id, symbol);
 		if (this.state.add.includes(symbol)) {
 			const plus = this.state.add.filter(stock => stock !== symbol);
 			return this.setState({ add: plus });
@@ -218,9 +210,7 @@ class Stocks extends Component {
 		}
 	}
 	update = (type, name, value) => {
-		console.log(type, name, value);
 		const index = this.state.watchlists.findIndex(watchlist => watchlist.name === name);
-		console.log(name, value, index);
 		if (index > -1) {
 			const newWatchlists = [...this.state.watchlists];
 			newWatchlists[index].list.push(value);
@@ -233,27 +223,23 @@ class Stocks extends Component {
 	getWatchlists = () => {
 		axios.get("/user/watchlists")
 			.then(response => {
-				console.log(response.data);
 				const watchlists = response.data.watchlists;
 				if (Object.keys(watchlists).length) this.getData(watchlists);
 				return this.setState({ watchlists: watchlists });
 			})
 			.catch(error => {
-				console.log(error.request);
+				this.props.notify("An Error Occured while getting your Watchlists", 4)
 			});
 	}
 	getData = (watchlists) => {
-		console.log(watchlists);
 		let symbols = [];
 		watchlists.forEach(watchlist => {
 			symbols = this.uniqueArray(symbols.concat(watchlist.list));
 		});
 		symbols = symbols.filter(symbol => !Object.keys(this.state.companies).includes(symbol));
-		console.log("getdata", symbols);
 		if (!symbols.length) return null;
 		axios.post('/stock/batch', { symbols: symbols, points: ["quote"] })
 			.then(response => {
-				console.log("quote", response.data);
 				const companies = { ...this.state.companies };
 				const prices = { ...this.state.prices };
 				for (let symbol in response.data) {
@@ -261,15 +247,14 @@ class Stocks extends Component {
 					delete response.data[symbol].companyName;
 					prices[symbol] = response.data[symbol];
 				}
-				console.log(companies);
-				console.log(prices);
 				return this.setState({ companies: companies, prices: prices });
+			})
+			.catch(error => {
+				this.props.notify("An Error Occured", 4)
 			})
 	}
 	activateStock = (symbol) => {
-		console.log(symbol);
 		window.scrollTo(0, 0);
-		// this.setState({ active: symbol });
 		const company = this.state.companies[symbol]
 		const prices = this.state.prices[symbol]
 		this.props.activate(symbol, company, prices);
@@ -277,11 +262,10 @@ class Stocks extends Component {
 	transaction = (data) => {
 		axios.post('/transaction/', data)
 			.then(response => {
-				console.log(response.data);
 				if (response.data._id) this.closeModal();
 			})
 			.catch(error => {
-				console.log(error.request);
+				this.props.notify("An Error Occured while sending the order", 4)
 			});
 	}
 	componentDidMount = () => {
@@ -289,20 +273,22 @@ class Stocks extends Component {
 		this.getPortfolio();
 		this.getOrders();
 		this.getWatchlists();
-		const socket = openSocket('http://localhost:8080');
+		const socket = openSocket('https://www.shikhersrivastava.com', { path: '/stapi/socket.io' });
+		// const socket = openSocket('http://localhost:8080');
 		socket.emit('join', { id: localStorage.getItem('userid') });
 		socket.on('transaction', data => {
 			this.getPortfolio();
 			this.getOrders();
+			this.props.notify(data.message, 8);
 		});
 		socket.on('order', data => {
-			console.log(data);
 			this.getWatchlists();
 			this.getOrders();
+			this.props.notify(data.message, 8);
 		});
 		socket.on('watchlist', data => {
-			console.log(data);
 			this.getWatchlists();
+			this.props.notify(data.message, 5);
 		});
 
 	}
@@ -310,11 +296,8 @@ class Stocks extends Component {
 		const lists = [];
 		this.state.watchlists.forEach(watchlist => {
 			const edit = watchlist._id === this.state._id;
-			console.log(watchlist._id, this.state._id, edit);
 			let list = watchlist.list;
 			if (edit) {
-				// list = [...watchlist.list, ...this.state.add];
-				// console.log("list", list);
 				list = this.uniqueArray(watchlist.list.concat(this.state.add))
 				list = list.filter(x => !this.state.remove.includes(x));
 			}
@@ -328,7 +311,6 @@ class Stocks extends Component {
 				value={this.state.value}
 				editing={edit}
 				activate={(symbol) => this.activateStock(symbol)}
-				// add={() => this.openModal("add", watchlist._id)}
 				add={(symbol) => this.add(symbol)}
 				edit={() => this.openModal("edit", watchlist._id)}
 				remove={(symbol) => this.remove(watchlist._id, symbol)}
@@ -338,7 +320,6 @@ class Stocks extends Component {
 				numberWithCommas={this.props.numberWithCommas}
 			/>)
 		});
-		// console.log(lists);
 		return (
 			<div className={classes.stocks}>
 				<Accordian>
@@ -350,7 +331,6 @@ class Stocks extends Component {
 							<Heading>New Watchlist</Heading>
 						</div>
 						<div>
-							{/* <Form value={this.state.value} update={this.update} details={{ normal: { "name": "" } }} /> */}
 							{this.state.new ? <Input value={this.state.value} update={this.update} name="name" disabled={this.state.value} /> : null}
 						</div>
 						<div>
@@ -360,7 +340,6 @@ class Stocks extends Component {
 					</Modal>
 					<Modal show={this.state.deleteModal} clicked={this.closeModal}>
 						<div>
-							{/* <Form value={this.state.value} update={this.update} details={{ normal: { "name": "" } }} /> */}
 							Are you sure you wnt to delete this {this.state.orderID ? "order" : "watchlist"}?
 						</div>
 						<div>
@@ -385,8 +364,6 @@ class Stocks extends Component {
 					></Orders>) : null}
 					{lists}
 				</Accordian >
-				{/* {this.state.active ? <Route path="/" render={(props) => <Details {...props} symbol={this.state.active} company={this.state.companies[this.state.active]} prices={this.state.prices[this.state.active]} />}></Route> : null} */}
-				{/* {this.state.active ? <Details symbol={this.state.active} company={this.state.companies[this.state.active]} prices={this.state.prices[this.state.active]} /> : null} */}
 			</div>
 		);
 	}

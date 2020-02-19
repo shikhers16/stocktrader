@@ -6,19 +6,15 @@
 	align-items: center;
 	margin: 0.5rem 0;
 	min-width: 280px;
-	/* width: 80vw; */
 }
 .left{
 	display: flex;
 	align-items: center;
-	/* padding: 1rem; */
 }
 .right{
 	display: flex;
 	flex-direction: column;
-	/* padding: 1rem; */
 	text-align: right;
-	/* align-items: center; */
 }
 .changevalue{
 	padding: 0.5rem;
@@ -41,11 +37,6 @@
 	justify-content: space-between;
 	margin: 0.5rem 0;
 }
-.dropdown{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
 .input{
 	display: flex;
 	flex-direction: row;
@@ -58,10 +49,9 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	/* margin: 1rem 0 0; */
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
 	.top{
 		min-width: 280px;
 	};

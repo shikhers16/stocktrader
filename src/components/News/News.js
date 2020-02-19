@@ -1,8 +1,6 @@
 import React from 'react';
 import classes from './News.module.css';
 
-import Heading from '../UI/Heading/Heading';
-import Logo from '../UI/Logo/Logo';
 import LinkButton from '../UI/Button/LinkButton';
 
 const News = (props) => {
@@ -14,7 +12,7 @@ const News = (props) => {
 			</div>
 			<div>
 				<div className={classes.imagecontainer}>
-					<img src={props.image} alt="news image" className={classes.image}></img>
+					<img src={props.image} alt={props.source} className={classes.image}></img>
 				</div>
 				<p>{props.summary}</p>
 			</div>

@@ -1,7 +1,7 @@
 .accordian{
 	display: block;
 	margin: 0.5rem;
-	/* background-color: #cccccc; */
+	background-color: var(--alt-bg-color);
 	width: 100%;
 	text-align: center;
 	border-radius: 4px;
@@ -9,7 +9,7 @@
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
 .accordian{
 	display: block;
 	margin: 0.25rem 0;

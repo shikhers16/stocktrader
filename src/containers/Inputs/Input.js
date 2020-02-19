@@ -11,7 +11,6 @@ class Input extends Component {
 		this.setState({ value: value });
 	}
 	enter = (e) => {
-		console.log(e.which, e.key);
 		if (e.which === 13 || e.keyCode === 13) {
 			e.currentTarget.nextElementSibling.firstChild.click();
 		}
@@ -28,7 +27,6 @@ class Input extends Component {
 			inputclass = inputclass + " " + classes.disabled;
 		}
 		const autoComplete = (this.props.name === "username" || this.props.name === "email") ? this.props.name : null;
-		console.log(autoComplete);
 		return (<Fragment>
 			<label htmlFor={this.props.name} className={classes.label}>{this.props.name}</label>
 			<div className={mainclass}>

@@ -27,21 +27,21 @@ class Details extends Component {
 	getNews = () => {
 		axios.get(`/stock/news?symbol=${this.props.symbol}`)
 			.then(response => {
-				console.log(response.data);
 				this.setState({ news: response.data, active: this.props.symbol });
 			})
 			.catch(error => {
-				console.log(error.request);
+				// console.log(error.request);
+				console.log("an error occured");
 			});
 	}
 	transaction = (data) => {
 		axios.post('/transaction/', data)
 			.then(response => {
-				console.log(response.data);
 				if (response.data._id) this.closeModal();
 			})
 			.catch(error => {
-				console.log(error.request);
+				console.log("an error occured");
+				// console.log(error.request);
 			});
 	}
 	componentDidMount = () => {
@@ -75,7 +75,6 @@ class Details extends Component {
 								${this.props.prices ? this.props.numberWithCommas(this.props.prices.price) : null}
 							</div>
 							<sub className={color} >
-								{/* {this.state.percent ? (<div className={classes.changevalue}>{(this.props.prices[symbol].changePercent * 100).toFixed(2) + "%"}</div>) : (<div className={classes.changevalue}>{this.props.prices[symbol].change + "$"}</div>)} */}
 								<span className={classes.changevalue}>
 									{(this.props.numberWithCommas(this.props.prices.change) + "$")}
 								</span>
@@ -91,7 +90,7 @@ class Details extends Component {
 					</div>
 				</div>
 				<div className={classes.chart}>
-					<TradingViewWidget symbol={this.props.symbol} theme={Themes.DARK} autosize />
+					<TradingViewWidget symbol={this.props.symbol} theme={Themes.DARK} autosize hide_side_toolbar={false} show_popup_button={true} />
 				</div>
 				<div className={classes.news}>
 					{news}

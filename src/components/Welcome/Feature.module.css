@@ -1,0 +1,15 @@
+.feature{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-top: 1px solid #444444;
+}
+.heading{
+	margin: 1rem;
+}
+.text{
+	padding: 1rem;
+}
+.image{
+	max-width: 100%;
+}

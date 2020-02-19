@@ -10,15 +10,13 @@
   width: 100%;
 }
 
-/* On mouse-over, add a deeper shadow */
+
 .listitem:hover,
 .listitem:active{
   border: 1px solid var(--contrast-bg-color);
-  /* box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.8); */
 }
 .edit {
   border: 1px solid var(--contrast-bg-color);
-  /* box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.8); */
 }
 .edit:hover,
 .edit:active{

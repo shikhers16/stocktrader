@@ -16,7 +16,7 @@ const Form = (props) => {
 						if (element.hasOwnProperty(name)) {
 							const value = element[name];
 							formcontrols.push(<div className={classes.formcontrol} key={name + idx} >
-								<Input type="text" name={name} value={value} disabled={props.disabled} remove={props.remove} tabindex={idx} update={props.update} notify={props.notify} ></Input>
+								<Input type="text" name={name} value={value} disabled={props.disabled} remove={props.remove} tabindex={idx} update={props.update}></Input>
 							</div>);
 						}
 					}

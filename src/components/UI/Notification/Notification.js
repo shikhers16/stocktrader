@@ -4,12 +4,13 @@ const notification = (props) => {
 	const closeNotification = (e) => {
 		props.close();
 	}
-	// let notficationclass = classes.frame + " " + classes.hide;
-	// if (props.show) {
-	// 	notficationclass = classes.frame;
-	// }
-	return (<div className={classes.frame} id="notification">
-		<span>
+	return (<div
+		className={classes.frame}
+		style={{
+			WebkitAnimation: `${classes["notify-start"]} 0.5s ease-in-out, ${classes["notify-end"]} 0.5s ease-in-out ${props.timing - 0.5}s`, animation: `${classes["notify-start"]} 0.5s ease-in-out, ${classes["notify-end"]} 0.5s ease-in-out ${props.timing - 0.5}s`
+		}}
+		id="notification" >
+		<span className={classes.message}>
 			{props.message}
 		</span>
 		<button className={classes.cross} onClick={(e) => { closeNotification(e) }}>
