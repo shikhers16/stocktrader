@@ -4,7 +4,7 @@ import classes from './Orders.module.css'
 
 import Heading from '../../../components/UI/Heading/Heading';
 
-class Portfolio extends Component {
+class Orders extends Component {
 	state = {
 		open: false,
 		panel: null,
@@ -52,7 +52,7 @@ class Portfolio extends Component {
 		});
 		return (<div className={classes.list} >
 			<div className={classes.item}>
-				<div className={classes.heading} onClick={this.toggleDropdown} id="Portfolio">
+				<div className={classes.heading} onClick={this.toggleDropdown} id="Orders">
 					<Heading>Orders</Heading>
 					<Heading className={classes.arrow}>
 						<i className="fas fa-chevron-down"></i>
@@ -86,4 +86,4 @@ class Portfolio extends Component {
 	}
 }
 
-export default Portfolio;
+export default Orders;

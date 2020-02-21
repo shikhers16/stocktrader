@@ -35,9 +35,12 @@ class Details extends Component {
 			});
 	}
 	transaction = (data) => {
+		this.closeModal();
 		axios.post('/transaction/', data)
 			.then(response => {
-				if (response.data._id) this.closeModal();
+				if (response.data) {
+					this.props.notify(response.data.message, 8);
+				}
 			})
 			.catch(error => {
 				console.log("an error occured");

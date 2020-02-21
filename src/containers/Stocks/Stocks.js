@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import openSocket from 'socket.io-client';
+// import openSocket from 'socket.io-client';
 
 import classes from './Stocks.module.css';
 
@@ -95,7 +95,7 @@ class Stocks extends Component {
 			})
 			.catch(error => {
 				// console.log(error.request);
-				this.props.notify("An Error Occured in getting Portfolio", 4)
+				// this.props.notify("An Error Occured in getting Portfolio", 4);
 			});
 	}
 	getOrders = () => {
@@ -108,8 +108,11 @@ class Stocks extends Component {
 				}
 			})
 			.catch(error => {
-				this.props.notify("An Error Occured in getting your Orders", 4)
 			});
+		setTimeout(() => {
+			this.getPortfolio();
+			this.getOrders();
+		}, 6000)
 	}
 	addWatchlist = () => {
 		axios.post('/user/watchlist/new/', { name: this.state.name })
@@ -118,6 +121,7 @@ class Stocks extends Component {
 					const newWatchlists = [...this.state.watchlists];
 					newWatchlists.push(response.data.watchlist);
 					this.setState({ watchlists: newWatchlists });
+					this.props.notify("Watchlist Added Successfully", 8);
 					return this.closeModal();
 				}
 			})
@@ -139,6 +143,7 @@ class Stocks extends Component {
 					newWatchlists.splice(index, 1, response.data.watchlist);
 					this.setState({ watchlists: newWatchlists, add: [], remove: [], _id: null });
 					this.getData(newWatchlists);
+					this.props.notify("Watchlist Edited Successfully", 4);
 					return this.closeModal();
 				}
 			})
@@ -159,6 +164,7 @@ class Stocks extends Component {
 							const index = this.state.watchlists.findIndex(watchlist => watchlist._id === _id);
 							newWatchlists.splice(index, 1);
 							this.setState({ watchlists: newWatchlists });
+							this.props.notify("Watchlist Deleted Successfully", 4);
 							return this.closeModal();
 						}
 					})
@@ -259,38 +265,28 @@ class Stocks extends Component {
 		const prices = this.state.prices[symbol]
 		this.props.activate(symbol, company, prices);
 	}
-	transaction = (data) => {
-		axios.post('/transaction/', data)
-			.then(response => {
-				if (response.data._id) this.closeModal();
-			})
-			.catch(error => {
-				this.props.notify("An Error Occured while sending the order", 4)
-			});
-	}
 	componentDidMount = () => {
 		this.toggleslide();
 		this.getPortfolio();
 		this.getOrders();
 		this.getWatchlists();
-		const socket = openSocket('https://www.shikhersrivastava.com', { path: '/stapi/socket.io' });
-		// const socket = openSocket('http://localhost:8080');
-		socket.emit('join', { id: localStorage.getItem('userid') });
-		socket.on('transaction', data => {
-			this.getPortfolio();
-			this.getOrders();
-			this.props.notify(data.message, 8);
-		});
-		socket.on('order', data => {
-			this.getWatchlists();
-			this.getOrders();
-			this.props.notify(data.message, 8);
-		});
-		socket.on('watchlist', data => {
-			this.getWatchlists();
-			this.props.notify(data.message, 5);
-		});
-
+		// const socket = openSocket('https://www.shikhersrivastava.com', { path: '/stapi/socket.io' });
+		// // const socket = openSocket('http://localhost:8080');
+		// socket.emit('join', { id: localStorage.getItem('userid') });
+		// socket.on('transaction', data => {
+		// 	this.getPortfolio();
+		// 	this.getOrders();
+		// 	this.props.notify(data.message, 8);
+		// });
+		// socket.on('order', data => {
+		// 	this.getWatchlists();
+		// 	this.getOrders();
+		// 	this.props.notify(data.message, 8);
+		// });
+		// socket.on('watchlist', data => {
+		// 	this.getWatchlists();
+		// 	this.props.notify(data.message, 5);
+		// });
 	}
 	render = () => {
 		const lists = [];
